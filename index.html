@@ -1,0 +1,372 @@
+<!DOCTYPE html><html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>❤️ Thamires, Você é o Amor da Minha Vida ❤️</title><style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#000;
+    color:white;
+    text-align:center;
+    overflow-x:hidden;
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:-1;
+}
+
+header{
+    padding:60px 20px;
+}
+
+h1{
+    color:#ff4d6d;
+    font-size:3rem;
+    text-shadow:0 0 20px #ff4d6d;
+}
+
+.subtitulo{
+    margin-top:15px;
+    font-size:1.2rem;
+    color:#ddd;
+}
+
+.contador{
+    margin:30px auto;
+    width:90%;
+    max-width:800px;
+    padding:20px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.05);
+}
+
+#tempo{
+    color:#ffb3c1;
+    font-size:1.6rem;
+    margin-top:10px;
+}
+
+audio{
+    margin:20px;
+    width:90%;
+    max-width:400px;
+}
+
+.galeria{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+    padding:30px;
+}
+
+.galeria img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+    border-radius:15px;
+    transition:.4s;
+}
+
+.galeria img:hover{
+    transform:scale(1.05);
+}
+
+.carta{
+    width:90%;
+    max-width:900px;
+    margin:40px auto;
+    padding:30px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.05);
+    line-height:1.8;
+}
+
+.botao{
+    background:#ff4d6d;
+    color:white;
+    border:none;
+    padding:15px 30px;
+    border-radius:30px;
+    cursor:pointer;
+    margin:15px;
+    font-size:1rem;
+}
+
+.botao:hover{
+    transform:scale(1.05);
+}
+
+.surpresa{
+    display:none;
+    margin-top:20px;
+    font-size:1.3rem;
+    color:#ffb3c1;
+}
+
+.motivoAnimado{
+    font-size:1.4rem;
+    min-height:120px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    animation:fadeIn 1s;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+#fraseAleatoria{
+    color:#ffb3c1;
+    font-size:1.2rem;
+    margin:30px;
+}
+
+footer{
+    padding:40px;
+    color:#aaa;
+}
+</style></head>
+<body><canvas id="canvas"></canvas>
+
+<header>
+<h1>❤️ Thamires, Você é o Amor da Minha Vida ❤️</h1><p class="subtitulo">
+Desde 11/10/2024 escrevendo a mais linda história de amor ao lado da Thamires. ❤️
+</p>
+</header><div class="contador">
+<h2>⏳ Estamos juntos há:</h2>
+<p id="tempo"></p>
+</div><audio autoplay loop controls>
+<source src="musica.mp3" type="audio/mpeg">
+</audio><div id="fraseAleatoria"></div><h2>📸 Nossas Memórias</h2><div class="galeria">
+<img src="foto1.jpg">
+<img src="foto2.jpg">
+<img src="foto3.jpg">
+<img src="foto4.jpg">
+<img src="foto5.jpg">
+<img src="foto6.jpg">
+<img src="foto7.jpg">
+<img src="foto8.jpg">
+<img src="foto9.jpg">
+<img src="foto10.jpg">
+<img src="foto11.jpg">
+<img src="foto12.jpg">
+</div><div class="carta">
+<h2>💌 Uma Carta Para Você 💌</h2><p>Meu amor, Thamires...</p><p>
+Desde o dia 11 de outubro de 2024 minha vida mudou completamente.
+Você trouxe felicidade para os meus dias, amor para o meu coração e paz para minha alma.
+</p><p>
+Cada sorriso seu ilumina meu mundo.
+Cada abraço seu me faz sentir em casa.
+Cada momento ao seu lado se torna uma lembrança inesquecível.
+</p><p>
+Obrigado por estar comigo, por acreditar em mim e por compartilhar sua vida comigo.
+</p><p>
+Você é meu presente favorito, minha melhor companhia e o amor da minha vida.
+</p><p>
+Eu te amo infinitamente. ❤️
+</p><p>
+Com todo meu amor,
+<br><br>
+❤️ Gabriel ❤️
+</p>
+</div><button class="botao" onclick="mostrarSurpresa()">
+❤️ Clique Para Uma Surpresa ❤️
+</button><div class="surpresa" id="surpresa">
+💖 Eu escolheria você em todas as vidas, em todos os mundos e em todas as versões do universo. 💖
+</div><button class="botao" onclick="iniciarMotivos()">
+❤️ 10 Motivos Pelos Quais Eu Te Amo ❤️
+</button><div id="caixaMotivos" class="carta" style="display:none;">
+<h2>❤️ 10 Motivos Pelos Quais Eu Te Amo ❤️</h2><p id="motivoTexto" class="motivoAnimado"></p><button id="proximoBtn" class="botao" onclick="proximoMotivo()">
+Próximo ❤️
+</button>
+</div><footer>
+❤️ Gabriel & Thamires ❤️
+</footer><script>
+
+// CONTADOR
+const inicio = new Date("2024-10-11T00:00:00");
+
+function atualizarTempo(){
+    const agora = new Date();
+    const diff = agora - inicio;
+
+    const dias = Math.floor(diff/(1000*60*60*24));
+    const horas = Math.floor((diff/(1000*60*60))%24);
+    const minutos = Math.floor((diff/(1000*60))%60);
+    const segundos = Math.floor((diff/1000)%60);
+
+    document.getElementById("tempo").innerHTML =
+    `${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos ❤️`;
+}
+
+setInterval(atualizarTempo,1000);
+atualizarTempo();
+
+function mostrarSurpresa(){
+    document.getElementById("surpresa").style.display="block";
+}
+
+// FRASES
+const frases = [
+"❤️ Você é meu lugar favorito.",
+"❤️ Meu melhor dia sempre é ao seu lado.",
+"❤️ Seu sorriso é minha paz.",
+"❤️ Eu te escolheria mil vezes.",
+"❤️ Você é meu sonho realizado.",
+"❤️ Obrigado por existir, Thamires.",
+"❤️ Meu coração é seu."
+];
+
+setInterval(()=>{
+document.getElementById("fraseAleatoria").innerHTML =
+frases[Math.floor(Math.random()*frases.length)];
+},3000);
+
+// 10 MOTIVOS
+const motivos = [
+"❤️ Seu sorriso ilumina meus dias.",
+"❤️ Você me faz feliz até nos momentos difíceis.",
+"❤️ Seus abraços são o meu lugar favorito.",
+"❤️ Você acredita em mim.",
+"❤️ Ao seu lado tudo é melhor.",
+"❤️ Você é linda por dentro e por fora.",
+"❤️ Você torna tudo especial.",
+"❤️ Você me inspira a ser melhor.",
+"❤️ Amo cada detalhe seu.",
+"❤️ Porque meu coração escolheu você."
+];
+
+let indice = 0;
+
+function iniciarMotivos(){
+document.getElementById("caixaMotivos").style.display="block";
+indice=0;
+mostrarMotivo();
+}
+
+function mostrarMotivo(){
+const texto=document.getElementById("motivoTexto");
+texto.style.animation="none";
+void texto.offsetWidth;
+texto.style.animation="fadeIn 1s";
+texto.innerHTML=motivos[indice];
+}
+
+function proximoMotivo(){
+indice++;
+
+if(indice < motivos.length){
+mostrarMotivo();
+}else{
+document.getElementById("motivoTexto").innerHTML =
+"💖 Thamires, obrigado por fazer parte da minha vida. Eu te amo infinitamente. 💖";
+
+document.getElementById("proximoBtn").style.display="none";
+
+confeteAmor();
+}
+}
+
+function confeteAmor(){
+for(let i=0;i<100;i++){
+
+setTimeout(()=>{
+
+const heart=document.createElement("div");
+
+heart.innerHTML="❤️";
+heart.style.position="fixed";
+heart.style.left=Math.random()*100+"vw";
+heart.style.top="-50px";
+heart.style.fontSize=(Math.random()*25+20)+"px";
+heart.style.zIndex="9999";
+
+document.body.appendChild(heart);
+
+let pos=-50;
+
+const anim=setInterval(()=>{
+pos+=5;
+heart.style.top=pos+"px";
+
+if(pos>window.innerHeight){
+clearInterval(anim);
+heart.remove();
+}
+},20);
+
+},i*70);
+}
+}
+
+// CORAÇÕES CAINDO
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+const hearts=[];
+
+for(let i=0;i<70;i++){
+hearts.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*20+10,
+speed:Math.random()*2+1
+});
+}
+
+function drawHeart(x,y,size){
+ctx.fillStyle="#ff4d6d";
+
+ctx.beginPath();
+ctx.moveTo(x,y);
+
+ctx.bezierCurveTo(x-size/2,y-size/2,x-size,y+size/3,x,y+size);
+ctx.bezierCurveTo(x+size,y+size/3,x+size/2,y-size/2,x,y);
+
+ctx.fill();
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+hearts.forEach(h=>{
+drawHeart(h.x,h.y,h.size);
+
+h.y+=h.speed;
+
+if(h.y>canvas.height){
+h.y=-20;
+h.x=Math.random()*canvas.width;
+}
+});
+
+requestAnimationFrame(animate);
+}
+
+animate();
+
+</script></body>
+</html>
